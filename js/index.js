@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const button = document.createElement("button")
   button.style.background = "orange"
   button.style.fontFamily = "Comic Sans MS"
-  button.textContent = "i like this"
-  
+  button.textContent = "i like this book"
+
 
 
 
@@ -25,8 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const image = document.createElement("img")
     image.src = bookObj['img_url']
     const title = document.createElement("h3")
-    
+
     title.textContent = bookObj.title
+    title.dataset.id = bookObj.id
     const subtitle = document.createElement("h4")
     subtitle.textContent = bookObj.subtitle
     const author = document.createElement("h4")
@@ -34,13 +35,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const desc = document.createElement("p")
     desc.textContent = bookObj.description
     const ul = document.createElement("ul")
-    
+
     bookObj.users.forEach((user) => {
       const li = document.createElement("li")
       li.textContent = user.username
       li.dataset.id = user.id
       ul.append(li)
-    
+
     })
     showPanel.append(image, title, subtitle, author, desc, ul)
     ul.append(button)
@@ -54,9 +55,42 @@ document.addEventListener("DOMContentLoaded", function () {
       const id = event.target.dataset.id
       // console.log(id)
       fetch(`http://localhost:3000/books/${id}`)
-      .then(response => response.json())
-      .then(bookObj => renderOneBook(bookObj))
+        .then(response => response.json())
+        .then(bookObj => renderOneBook(bookObj))
     }
+
+  }
+
+  const addALike = () => {
+    // console.log(event.target)
+      const title = showPanel.querySelector("h3")
+      // console.log(title)
+      const id = title.dataset.id
+      // console.log(id)
+
+      const myId = {
+        id: 1, 
+        username: "pouros"
+      }
+
+      fetch(`http://localhost:3000/books/${id}`)
+      .then(response => response.json())
+      .then(bookObj => {
+        bookObj.users.push(myId);
+      const newUsers = `{"users": [${bookObj.users}]}`
+      console.log(newUsers)
+      })
+
+      fetch(`http://localhost:3000/books/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(newUsers),
+      })
+        .then(response => response.json())
+        .then(data => console.log(data));
 
   }
 
@@ -64,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // EVENT LISTENERS
 
   ul.addEventListener("mousedown", selectBook)
-
+  button.addEventListener("click", addALike)
 
 
 

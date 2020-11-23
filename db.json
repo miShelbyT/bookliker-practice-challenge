@@ -53,14 +53,11 @@
       "img_url": "https://books.google.com/books/content?id=nHlbDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
       "users": [
         {
-          "id": 8,
-          "username": "maverick"
-        },
-        {
-          "id": 9,
-          "username": "alex"
+          "id": 1,
+          "username": "pouros"
         }
-      ]
+      ],
+      "username": "pouros"
     },
     {
       "id": 4,
@@ -99,7 +96,8 @@
           "id": 8,
           "username": "maverick"
         }
-      ]
+      ],
+      "username": "pouros"
     },
     {
       "id": 6,
