@@ -8,10 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
   button.style.fontFamily = "Comic Sans MS"
   button.textContent = "i like this book"
 
-
-
-
-
   // RENDERS
 
   const renderBookTitle = (bookObj) => {
